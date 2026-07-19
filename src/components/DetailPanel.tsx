@@ -1,6 +1,8 @@
 import { useStore } from '../store'
+import { useIsMobile } from '../hooks/useIsMobile'
 
 function fmt(v: number): string {
+  if (v <= 0 || isNaN(v)) return '$0'
   if (v >= 1e9) return `$${(v / 1e9).toFixed(2)}B`
   if (v >= 1e6) return `$${(v / 1e6).toFixed(1)}M`
   return `$${v.toLocaleString()}`
@@ -32,32 +34,61 @@ const INTEGRATION_BASIS: Record<string, { status: 'LIVE' | 'ANNOUNCED'; detail: 
 
 export function DetailPanel() {
   const { selectedId, protocols, rkuSOL, setSelected } = useStore()
+  const isMobile = useIsMobile()
   if (!selectedId) return null
 
   const isRkuSOL = selectedId === 'rkusol'
   const protocol = protocols.find(p => p.id === selectedId)
 
+  const mobileStyle = {
+    position: 'fixed' as const, bottom: 0, left: 0,
+    width: '100%', height: '68vh',
+    background: 'linear-gradient(to top, rgba(1,2,14,0.99), rgba(1,2,14,0.95))',
+    borderTop: '1px solid rgba(255,255,255,0.12)',
+    borderRadius: '16px 16px 0 0',
+    padding: '24px 20px 32px',
+    animation: 'slideUp 0.25s ease-out',
+  }
+
+  const desktopStyle = {
+    position: 'fixed' as const, top: 0, right: 0,
+    width: '300px', height: '100vh',
+    background: 'linear-gradient(to left, rgba(1,2,14,0.97), rgba(1,2,14,0.90))',
+    borderLeft: '1px solid rgba(255,255,255,0.10)',
+    padding: '40px 26px 32px',
+    animation: 'slideIn 0.22s ease-out',
+  }
+
   return (
-    <div style={{
-      position: 'fixed', top: 0, right: 0,
-      width: '300px', height: '100vh',
-      background: 'linear-gradient(to left, rgba(1,2,14,0.97), rgba(1,2,14,0.90))',
-      borderLeft: '1px solid rgba(255,255,255,0.10)',
-      padding: '40px 26px 32px',
-      fontFamily: "'Geist Mono', 'Courier New', monospace",
-      color: '#bbc',
-      display: 'flex', flexDirection: 'column', gap: '20px',
-      zIndex: 10,
-      backdropFilter: 'blur(10px)',
-      animation: 'slideIn 0.22s ease-out',
-      overflowY: 'auto',
-    }}>
+    <div
+      key={selectedId}
+      style={{
+        ...(isMobile ? mobileStyle : desktopStyle),
+        fontFamily: "'Geist Mono', 'Courier New', monospace",
+        color: '#bbc',
+        display: 'flex', flexDirection: 'column', gap: '20px',
+        zIndex: 10,
+        backdropFilter: 'blur(10px)',
+        overflowY: 'auto',
+      }}>
       <style>{`
         @keyframes slideIn {
           from { transform: translateX(100%); opacity: 0; }
           to   { transform: translateX(0);    opacity: 1; }
         }
+        @keyframes slideUp {
+          from { transform: translateY(100%); opacity: 0; }
+          to   { transform: translateY(0);    opacity: 1; }
+        }
       `}</style>
+      {isMobile && (
+        <div style={{
+          width: '40px', height: '4px', borderRadius: '2px',
+          background: 'rgba(255,255,255,0.2)',
+          margin: '-8px auto 4px',
+          flexShrink: 0,
+        }} />
+      )}
 
       <button
         onClick={() => setSelected(null)}

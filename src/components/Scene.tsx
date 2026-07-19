@@ -1,5 +1,4 @@
-import { useRef } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import * as THREE from 'three'
@@ -8,22 +7,11 @@ import { Nebula } from './Nebula'
 import { CenterStar } from './CenterStar'
 import { Planet } from './Planet'
 import { useStore } from '../store'
-
-function AutoRotateCamera() {
-  const angleRef = useRef(0)
-  useFrame(({ camera }) => {
-    angleRef.current += 0.0005
-    const r = 36
-    camera.position.x = Math.cos(angleRef.current) * r
-    camera.position.z = Math.sin(angleRef.current) * r
-    camera.position.y = 12 + Math.sin(angleRef.current * 0.35) * 4
-    camera.lookAt(0, 0, 0)
-  })
-  return null
-}
+import { useIsMobile } from '../hooks/useIsMobile'
 
 export function Scene() {
   const { protocols, selectedId } = useStore()
+  const isMobile = useIsMobile()
   const isInteracting = selectedId !== null
 
   return (
@@ -35,7 +23,7 @@ export function Scene() {
       <fog attach="fog" args={['#020208', 60, 300]} />
 
       {/* Background */}
-      <StarField count={4000} />
+      <StarField count={isMobile ? 1500 : 4000} />
       <Nebula />
 
       {/* Planets */}
@@ -55,17 +43,15 @@ export function Scene() {
       </EffectComposer>
 
       {/* Camera controls */}
-      {isInteracting ? (
-        <OrbitControls
-          enableDamping
-          dampingFactor={0.08}
-          minDistance={10}
-          maxDistance={80}
-          enablePan={false}
-        />
-      ) : (
-        <AutoRotateCamera />
-      )}
+      <OrbitControls
+        autoRotate={!isInteracting}
+        autoRotateSpeed={0.5}
+        enableDamping
+        dampingFactor={0.08}
+        minDistance={10}
+        maxDistance={80}
+        enablePan={false}
+      />
     </Canvas>
   )
 }

@@ -16,15 +16,13 @@ export function FlowStream({ protocol, targetPos }: Props) {
   const streamRef = useRef<THREE.Points>(null)
   const accentRef = useRef<THREE.Points>(null)
 
-  const [sBuf, s2Buf, aBuf, sOff, s2Off, aOff] = useMemo(() => {
-    const sOff  = Array.from({ length: N },  (_, k) => k / N)
-    const s2Off = Array.from({ length: N },  (_, k) => (k + 0.5) / N)
-    const aOff  = Array.from({ length: AN }, (_, k) => k / AN)
+  const [sBuf, aBuf, sOff, aOff] = useMemo(() => {
+    const sOff = Array.from({ length: N },  (_, k) => k / N)
+    const aOff = Array.from({ length: AN }, (_, k) => k / AN)
     return [
       new Float32Array(N * 3),
-      new Float32Array(N * 3),
       new Float32Array(AN * 3),
-      sOff, s2Off, aOff,
+      sOff, aOff,
     ]
   }, [N, AN])
 
@@ -66,9 +64,8 @@ export function FlowStream({ protocol, targetPos }: Props) {
     }
 
     const spd = isAnnounced ? 0.5 : 1.0
-    update(sBuf,  sOff,  0.006 * spd, 0.32, Math.PI * 4, streamRef)
-    update(s2Buf, s2Off, 0.004 * spd, 0.52, Math.PI * 3, { current: null })
-    update(aBuf,  aOff,  0.003 * spd, 0.70, Math.PI * 2.5, accentRef)
+    update(sBuf, sOff, 0.006 * spd, 0.32, Math.PI * 4,   streamRef)
+    update(aBuf, aOff, 0.003 * spd, 0.70, Math.PI * 2.5, accentRef)
   })
 
   return (

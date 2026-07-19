@@ -156,7 +156,7 @@ export function Planet({ protocol }: Props) {
             </div>
             <div style={{
               fontFamily: "'Geist Mono', 'Courier New', monospace",
-              fontSize: '10px',
+              fontSize: '12px',
               color: '#99a',
               marginTop: '3px',
               letterSpacing: '1px',

@@ -121,12 +121,12 @@ export function useEcosystemData() {
 function calcPlanetSize(tvl: number): number {
   if (!tvl || tvl <= 0) return 0.4
   const logScale = Math.log10(tvl)
-  // $10M → 0.4, $100M → 0.55, $1B → 0.85, $2B → 1.0
+  // $0 → 0.4 (default), ~$16M → 0.35 (min), $100M → 0.55, $1B → 0.80, ~$16B → 1.1 (max)
   return Math.max(0.35, Math.min(1.1, (logScale - 7) * 0.25 + 0.3))
 }
 
 function calcParticles(tvl: number, total: number): number {
   if (!tvl || !total) return 20
-  const ratio = tvl / total
+  const ratio = Math.min(tvl / total, 1)
   return Math.round(20 + ratio * 120)
 }
