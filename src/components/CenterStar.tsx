@@ -16,12 +16,13 @@ export function CenterStar() {
   const ringRef = useRef<THREE.Mesh>(null)
   const { setSelected, selectedId, setHovered } = useStore()
 
-  useFrame(({ clock }) => {
+  useFrame(({ clock }, delta) => {
     if (!groupRef.current) return
-    groupRef.current.rotation.y += 0.004
+    const f = Math.min(delta, 0.1) * 60
+    groupRef.current.rotation.y += 0.004 * f
     const pulse = 1 + Math.sin(clock.getElapsedTime() * 1.0) * 0.04
     groupRef.current.scale.setScalar(pulse)
-    if (ringRef.current) ringRef.current.rotation.z += 0.003
+    if (ringRef.current) ringRef.current.rotation.z += 0.003 * f
   })
 
   return (
@@ -32,7 +33,7 @@ export function CenterStar() {
       onPointerOut={() => setHovered(null)}
     >
       {GLOW_LAYERS.map((l, i) => (
-        <mesh key={i}>
+        <mesh key={i} {...(i > 0 ? { raycast: () => null } : {})}>
           <sphereGeometry args={[2.0 * l.scale, 32, 32]} />
           <meshBasicMaterial
             color={0xC0FF38}
@@ -45,7 +46,7 @@ export function CenterStar() {
         </mesh>
       ))}
       {/* Corona ring */}
-      <mesh ref={ringRef} rotation={[Math.PI / 2, 0, 0]}>
+      <mesh ref={ringRef} rotation={[Math.PI / 2, 0, 0]} raycast={() => null}>
         <ringGeometry args={[2.4, 3.1, 64]} />
         <meshBasicMaterial
           color={0xC0FF38}

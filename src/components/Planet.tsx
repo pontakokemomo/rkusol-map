@@ -27,8 +27,9 @@ export function Planet({ protocol }: Props) {
   const idx  = ['sanctum', 'jupiter', 'kamino', 'loopscale', 'exponent'].indexOf(protocol.id)
   const tilt = ORBIT_TILT[idx] ?? 0
 
-  useFrame(({ clock }) => {
-    angleRef.current += protocol.orbitSpeed
+  useFrame(({ clock }, delta) => {
+    const f = Math.min(delta, 0.1) * 60
+    angleRef.current += protocol.orbitSpeed * f
     const a = angleRef.current
     const r = protocol.orbitRadius
     const t = clock.getElapsedTime()
@@ -40,7 +41,7 @@ export function Planet({ protocol }: Props) {
 
     // groupRef を動かすと、子の Html も一緒についてくる
     if (groupRef.current) groupRef.current.position.set(x, y, z)
-    if (meshRef.current)  meshRef.current.rotation.y += 0.006
+    if (meshRef.current)  meshRef.current.rotation.y += 0.006 * f
   })
 
   const handleClick = useCallback(() => {
@@ -161,7 +162,7 @@ export function Planet({ protocol }: Props) {
               marginTop: '3px',
               letterSpacing: '1px',
             }}>
-              {protocol.category}
+              {protocol.kind === 'validator-stake' ? protocol.role : protocol.category}
             </div>
             {isAnnounced && (
               <div style={{

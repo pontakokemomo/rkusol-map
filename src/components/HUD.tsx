@@ -9,6 +9,7 @@ const CATEGORY_COLORS = [
   { label: 'Lending',        color: '#00FFA3' },
   { label: 'Yield',          color: '#FF5FAD' },
   { label: 'Infrastructure', color: '#FF7A45' },
+  { label: 'Validator',      color: '#8B93A7' },
 ]
 
 const RAIKU_LOGO = '/raiku-logo.png'
@@ -18,7 +19,7 @@ function BottomCTA() {
   const { selectedId, protocols } = useStore()
   if (selectedId) return null
 
-  const liveCount      = protocols.filter(p => p.status !== 'announced').length
+  const liveCount      = protocols.filter(p => p.status !== 'announced' && p.kind !== 'validator-stake').length
   const announcedCount = protocols.filter(p => p.status === 'announced').length
 
   return (
@@ -262,6 +263,7 @@ export function HUD() {
           <div style={{ marginTop: '14px', fontSize: '13px', color: '#aab', lineHeight: 1.9, textShadow: '0 1px 4px rgba(0,0,0,0.9)' }}>
             <div>◎ Size = rkuSOL TVL&nbsp;&nbsp;· · · Flow = Liquidity</div>
             <div>🪐 Orbit = Integration Role</div>
+            <div>◦ Inner orbit = SOL staked to Raiku validator</div>
           </div>
         )}
       </div>

@@ -41,10 +41,11 @@ function mapYieldsProject(project: string): string | null {
 }
 
 export function useEcosystemData() {
-  const { protocols, rkuSOL, setData, setLastUpdated, setFetchError } = useStore()
+  const { setData, setLastUpdated, setFetchError } = useStore()
 
   async function fetchAll() {
     try {
+      const { protocols, rkuSOL } = useStore.getState()
       const [tvls, supplyAmount, yieldsRes] = await Promise.all([
         // プロトコル全体の TVL（DeFiLlama /tvl/{slug}）
         Promise.all(SLUGS.map(s =>
@@ -82,6 +83,9 @@ export function useEcosystemData() {
       const rkusolTvlTotal = Object.values(rkusolPoolTvl).reduce((a, b) => a + b, 0)
 
       const updatedProtocols = protocols.map((p, i) => {
+        // validator-stake（Shinobi等）はDeFiLlama非対応のためデフォルト値を維持
+        if (p.kind === 'validator-stake') return p
+
         const protocolTvl = typeof tvls[i] === 'number' ? tvls[i] : p.tvl
         const rkusolTvl = rkusolPoolTvl[p.id]
         return {
@@ -99,7 +103,7 @@ export function useEcosystemData() {
       const updatedRkuSOL = {
         ...rkuSOL,
         supply: Math.floor(supply),
-        ecosystemCount: updatedProtocols.length,
+        ecosystemCount: updatedProtocols.filter(p => p.kind !== 'validator-stake').length,
       }
 
       setData(updatedRkuSOL, updatedProtocols)

@@ -1,7 +1,7 @@
 export interface Protocol {
   id: string
   name: string
-  category: 'Staking' | 'Lending' | 'Yield' | 'Infrastructure'
+  category: 'Staking' | 'Lending' | 'Yield' | 'Infrastructure' | 'Validator'
   color: string
   hex: number
   role: string
@@ -15,6 +15,7 @@ export interface Protocol {
   description: string
   streamParticles: number
   status?: 'live' | 'announced'
+  kind?: 'validator-stake'
 }
 
 export interface RkuSOLData {

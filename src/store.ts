@@ -102,6 +102,24 @@ const DEFAULT_PROTOCOLS: Protocol[] = [
     description: 'Fixed-rate yield exchange on Solana. Trade the future yield of rkuSOL as a tokenized instrument — separate principal from yield.',
     streamParticles: 25,
   },
+  {
+    id: 'shinobi',
+    name: 'Shinobi Stake Pool',
+    category: 'Validator',
+    kind: 'validator-stake',
+    color: '#8B93A7',
+    hex: 0x8B93A7,
+    role: 'Validator Stake',
+    orbitRadius: 5.5,
+    orbitSpeed: 0.0055,
+    orbitPhase: Math.PI * 0.8,
+    planetSize: 0.4,
+    tvl: 0,
+    apy: null,
+    connectedLiquidity: null,
+    description: 'Solana stake pool delegating SOL to the Raiku validator. This is external validator delegation that strengthens the stake base behind Raiku, not a rkuSOL DeFi integration. Confirmed on the official Raiku Town Hall (2026-07-17).',
+    streamParticles: 18,
+  },
 ]
 
 export const useStore = create<AppStore>((set) => ({
@@ -112,7 +130,7 @@ export const useStore = create<AppStore>((set) => ({
     tvl: 0,
     apy: 7.5,
     growthRate: 0,
-    ecosystemCount: DEFAULT_PROTOCOLS.length,
+    ecosystemCount: DEFAULT_PROTOCOLS.filter(p => p.kind !== 'validator-stake').length,
   },
   protocols: DEFAULT_PROTOCOLS,
   lastUpdated: null,

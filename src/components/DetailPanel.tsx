@@ -21,6 +21,7 @@ const CATEGORY_COLOR: Record<string, string> = {
   Lending:        '#00FFA3',
   Yield:          '#FF5FAD',
   Infrastructure: '#FF7A45',
+  Validator:      '#8B93A7',
 }
 
 const INTEGRATION_BASIS: Record<string, { status: 'LIVE' | 'ANNOUNCED'; detail: string }> = {
@@ -33,7 +34,7 @@ const INTEGRATION_BASIS: Record<string, { status: 'LIVE' | 'ANNOUNCED'; detail: 
 
 
 export function DetailPanel() {
-  const { selectedId, protocols, rkuSOL, setSelected } = useStore()
+  const { selectedId, protocols, rkuSOL, setSelected, setHovered } = useStore()
   const isMobile = useIsMobile()
   if (!selectedId) return null
 
@@ -91,7 +92,7 @@ export function DetailPanel() {
       )}
 
       <button
-        onClick={() => setSelected(null)}
+        onClick={() => { setSelected(null); setHovered(null) }}
         style={{
           position: 'absolute', top: '16px', right: '16px',
           background: 'none', border: 'none',
@@ -101,7 +102,7 @@ export function DetailPanel() {
       >✕</button>
 
       {isRkuSOL ? (
-        <RkuSOLDetail rkuSOL={rkuSOL} protocolCount={protocols.length} />
+        <RkuSOLDetail rkuSOL={rkuSOL} protocolCount={rkuSOL.ecosystemCount} />
       ) : protocol ? (
         <ProtocolDetail protocol={protocol} />
       ) : null}
@@ -153,6 +154,7 @@ function RkuSOLDetail({ rkuSOL, protocolCount }: { rkuSOL: any; protocolCount: n
 function ProtocolDetail({ protocol }: { protocol: any }) {
   const catColor = CATEGORY_COLOR[protocol.category] ?? '#aaa'
   const hasRkuSOLTvl = protocol.connectedLiquidity !== null
+  const isValidatorStake = protocol.kind === 'validator-stake'
 
   return (
     <>
@@ -173,36 +175,53 @@ function ProtocolDetail({ protocol }: { protocol: any }) {
         </div>
       </div>
 
-      <Divider />
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-        <div>
-          <StatRow label="Protocol TVL" value={fmt(protocol.tvl)} color={protocol.color} />
-          <div style={{ fontSize: '12px', color: '#556', marginTop: '5px', lineHeight: 1.7 }}>
-            Total value locked in {protocol.name} across all assets.
-            {hasRkuSOLTvl
-              ? ' Planet size reflects rkuSOL deposits specifically.'
-              : ' Planet size uses a fixed default — rkuSOL-specific data not available.'}
-          </div>
-        </div>
-
-        {hasRkuSOLTvl && (
-          <div>
-            <StatRow label="rkuSOL TVL" value={fmt(protocol.connectedLiquidity)} color="#FFB830" />
-            <div style={{ fontSize: '12px', color: '#556', marginTop: '5px', lineHeight: 1.7 }}>
-              Actual rkuSOL deposited in this protocol specifically.
-              Sourced from DeFiLlama yield pools.
+      {!isValidatorStake && (
+        <>
+          <Divider />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            <div>
+              <StatRow label="Protocol TVL" value={fmt(protocol.tvl)} color={protocol.color} />
+              <div style={{ fontSize: '12px', color: '#556', marginTop: '5px', lineHeight: 1.7 }}>
+                Total value locked in {protocol.name} across all assets.
+                {hasRkuSOLTvl
+                  ? ' Planet size reflects rkuSOL deposits specifically.'
+                  : ' Planet size uses a fixed default — rkuSOL-specific data not available.'}
+              </div>
             </div>
+
+            {hasRkuSOLTvl && (
+              <div>
+                <StatRow label="rkuSOL TVL" value={fmt(protocol.connectedLiquidity)} color="#FFB830" />
+                <div style={{ fontSize: '12px', color: '#556', marginTop: '5px', lineHeight: 1.7 }}>
+                  Actual rkuSOL deposited in this protocol specifically.
+                  Sourced from DeFiLlama yield pools.
+                </div>
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </>
+      )}
 
       <Divider />
 
       <Label>ROLE WITH rkuSOL</Label>
       <Body>{protocol.description}</Body>
 
-      {INTEGRATION_BASIS[protocol.id] && (() => {
+      {isValidatorStake ? (
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+            <div style={{ fontSize: '13px', color: '#889', letterSpacing: '3px' }}>INTEGRATION</div>
+            <div style={{
+              fontSize: '10px', letterSpacing: '2px',
+              color: '#8B93A7',
+              border: '1px solid rgba(139,147,167,0.3)',
+              borderRadius: '2px', padding: '1px 7px',
+            }}>
+              ● DELEGATING
+            </div>
+          </div>
+        </div>
+      ) : INTEGRATION_BASIS[protocol.id] && (() => {
         const b = INTEGRATION_BASIS[protocol.id]
         const isLive = b.status === 'LIVE'
         return (
@@ -251,13 +270,17 @@ function ProtocolDetail({ protocol }: { protocol: any }) {
 
       <Divider />
 
-      <DataSources lines={[
-        'Protocol TVL · DeFiLlama (real-time)',
-        hasRkuSOLTvl
-          ? 'rkuSOL TVL · DeFiLlama Yields (real-time)'
-          : 'rkuSOL TVL · data not available',
-        'Updated every 5 minutes',
-      ]} />
+      <DataSources lines={
+        isValidatorStake
+          ? ['Source: Raiku Town Hall (2026-07-17)']
+          : [
+              'Protocol TVL · DeFiLlama (real-time)',
+              hasRkuSOLTvl
+                ? 'rkuSOL TVL · DeFiLlama Yields (real-time)'
+                : 'rkuSOL TVL · data not available',
+              'Updated every 5 minutes',
+            ]
+      } />
     </>
   )
 }

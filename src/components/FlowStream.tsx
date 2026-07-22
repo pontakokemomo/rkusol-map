@@ -10,6 +10,7 @@ interface Props {
 
 export function FlowStream({ protocol, targetPos }: Props) {
   const isAnnounced = protocol.status === 'announced'
+  const isReversed = protocol.kind === 'validator-stake'
   const N = protocol.streamParticles
   const AN = Math.floor(N * 0.3)
 
@@ -28,7 +29,8 @@ export function FlowStream({ protocol, targetPos }: Props) {
 
   const ctrl = useMemo(() => new THREE.Vector3(), [])
 
-  useFrame(({ clock }) => {
+  useFrame(({ clock }, delta) => {
+    const f = Math.min(delta, 0.1) * 60
     const t = clock.getElapsedTime()
     const tgt = targetPos
     const len = tgt.length() || 1
@@ -49,7 +51,7 @@ export function FlowStream({ protocol, targetPos }: Props) {
     ) => {
       for (let k = 0; k < offsets.length; k++) {
         offsets[k] = (offsets[k] + speed) % 1.0
-        const o = offsets[k]
+        const o = isReversed ? 1 - offsets[k] : offsets[k]
         const mt = 1 - o
         const wave = Math.sin(o * waveFreq + t * 1.5 + k * 0.9) * waveAmp
         const px = (-tgt.z / len)
@@ -64,8 +66,8 @@ export function FlowStream({ protocol, targetPos }: Props) {
     }
 
     const spd = isAnnounced ? 0.5 : 1.0
-    update(sBuf, sOff, 0.006 * spd, 0.32, Math.PI * 4,   streamRef)
-    update(aBuf, aOff, 0.003 * spd, 0.70, Math.PI * 2.5, accentRef)
+    update(sBuf, sOff, 0.006 * spd * f, 0.32, Math.PI * 4,   streamRef)
+    update(aBuf, aOff, 0.003 * spd * f, 0.70, Math.PI * 2.5, accentRef)
   })
 
   return (

@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useEffect } from 'react'
 import * as THREE from 'three'
 
 function makeNebulaTexture(blobs: [number, number, number, string][]): THREE.CanvasTexture {
@@ -23,7 +23,9 @@ export function Nebula() {
     { blobs: [[200, 200, 200, '#1a0055'], [320, 280, 160, '#0d0033']] as [number,number,number,string][], pos: [28, -4, -65] as [number,number,number], rot: [-0.1, -0.2, 0] as [number,number,number], size: 130, opacity: 0.25 },
     { blobs: [[256, 200, 180, '#220055'], [180, 320, 140, '#1a0044']] as [number,number,number,string][], pos: [5, -18, -42] as [number,number,number], rot: [0.4, 0.05, 0.2] as [number,number,number], size: 72, opacity: 0.2 },
     { blobs: [[256, 256, 200, '#002233']] as [number,number,number,string][], pos: [0, 4, -28] as [number,number,number], rot: [0, 0, 0] as [number,number,number], size: 55, opacity: 0.1 },
-  ], [])
+  ].map(p => ({ ...p, texture: makeNebulaTexture(p.blobs) })), [])
+
+  useEffect(() => () => { planes.forEach(p => p.texture.dispose()) }, [planes])
 
   return (
     <>
@@ -31,7 +33,7 @@ export function Nebula() {
         <mesh key={i} position={p.pos} rotation={p.rot}>
           <planeGeometry args={[p.size, p.size]} />
           <meshBasicMaterial
-            map={makeNebulaTexture(p.blobs)}
+            map={p.texture}
             transparent
             opacity={p.opacity}
             blending={THREE.AdditiveBlending}
