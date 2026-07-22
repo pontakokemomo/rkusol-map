@@ -117,7 +117,7 @@ const DEFAULT_PROTOCOLS: Protocol[] = [
     tvl: 0,
     apy: null,
     connectedLiquidity: null,
-    description: 'Solana stake pool delegating SOL to the Raiku validator. This is external validator delegation that strengthens the stake base behind Raiku, not a rkuSOL DeFi integration. Confirmed on the official Raiku Town Hall (2026-07-17).',
+    description: 'Solana stake pool delegating SOL to the Raiku validator, strengthening the stake base behind rkuSOL. Confirmed on the official Raiku Town Hall (2026-07-17).',
     streamParticles: 18,
   },
 ]
