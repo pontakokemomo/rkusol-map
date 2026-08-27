@@ -28,7 +28,7 @@ const INTEGRATION_BASIS: Record<string, { status: 'LIVE' | 'ANNOUNCED'; detail: 
   sanctum:   { status: 'LIVE',     detail: 'LST infrastructure partner. rkuSOL routed through Sanctum Infinity pool at launch.' },
   jupiter:   { status: 'LIVE',     detail: 'Launch partner. rkuSOL accessible via Jupiter swap from day one.' },
   kamino:    { status: 'LIVE',     detail: 'rkuSOL accepted as collateral in Kamino lending markets.' },
-  loopscale: { status: 'ANNOUNCED', detail: 'Confirmed launch partner (Solana Circuit Ep.29 + press release). rkuSOL looping strategy announced — Earn Vault deployment in progress.' },
+  loopscale: { status: 'LIVE',     detail: 'rkuSOL/SOL loop market live on Loopscale, supporting up to 10x leverage. A PT-rkuSOL-31OCT26/SOL loop market is also listed (up to 4x leverage, maturity 31 Oct 2026). Actual availability depends on liquidity and lending offers at the time. Verified on the Loopscale app (2026-08-01).' },
   exponent:  { status: 'LIVE',     detail: 'rkuSOL listed on Exponent yield exchange. Rockaway X rkuSOL Earn Vault live.' },
 }
 
@@ -144,7 +144,7 @@ function RkuSOLDetail({ rkuSOL, protocolCount }: { rkuSOL: any; protocolCount: n
       <Divider />
 
       <DataSources lines={[
-        'Supply · Solana RPC (real-time)',
+        'Supply · Jupiter Token API / Solana RPC (real-time)',
         'Updated every 5 minutes',
       ]} />
     </>

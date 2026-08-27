@@ -81,9 +81,8 @@ const DEFAULT_PROTOCOLS: Protocol[] = [
     tvl: 80820000,
     apy: null,
     connectedLiquidity: null,
-    description: 'Modular lending protocol enabling looped borrowing strategies with rkuSOL to amplify yield exposure with precision risk control.',
+    description: 'Modular lending protocol supporting leveraged loop strategies for rkuSOL. The rkuSOL/SOL loop market lets users borrow SOL against rkuSOL to increase rkuSOL exposure with up to 10x leverage. A separate PT-rkuSOL-31OCT26/SOL loop market (up to 4x leverage) is also listed. Verified on the Loopscale app (2026-08-01).',
     streamParticles: 30,
-    status: 'announced',
   },
   {
     id: 'exponent',
