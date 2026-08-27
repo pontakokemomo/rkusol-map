@@ -180,15 +180,22 @@ export function HUD() {
           <span
             key={lastUpdated ? rkuSOL.supply : 'loading'}
             style={{
-              color: lastUpdated ? '#FFB830' : '#556',
+              color: !lastUpdated ? '#556' : fetchError ? '#8a8f9e' : '#FFB830',
               fontWeight: 'bold',
-              animation: lastUpdated ? 'supplyPulse 0.9s ease-out' : 'none',
+              animation: lastUpdated && !fetchError ? 'supplyPulse 0.9s ease-out' : 'none',
             }}
           >
             {lastUpdated ? rkuSOL.supply.toLocaleString() : '· · ·'}
           </span>
           {lastUpdated && ' rkuSOL'}
         </div>
+
+        {/* 発行量の取得に失敗した場合の注意書き */}
+        {fetchError && (
+          <div style={{ fontSize: isMobile ? '10px' : '12px', color: '#FF8A99', letterSpacing: '1px', marginTop: '2px' }}>
+            Live supply unavailable · showing reference value
+          </div>
+        )}
 
         {/* Mobile: CTA + disclaimer */}
         {isMobile && (

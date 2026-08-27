@@ -10,7 +10,25 @@ const SOLANA_RPCS = [
   'https://solana-rpc.publicnode.com',
 ]
 
-async function fetchSupply(): Promise<number | null> {
+// Jupiter Token API（APIキー不要・CORS許可あり）
+const JUP_TOKEN_API = 'https://lite-api.jup.ag/tokens/v2/search'
+
+// 第1候補: Jupiter Token API から発行量を取得
+async function fetchSupplyFromJupiter(): Promise<number | null> {
+  try {
+    const res = await fetch(`${JUP_TOKEN_API}?query=${RKUSOL_MINT}`)
+      .then(r => r.json())
+    if (!Array.isArray(res)) return null
+    const token = res.find(t => t?.id === RKUSOL_MINT)
+    const amount = token?.totalSupply
+    return typeof amount === 'number' ? amount : null
+  } catch {
+    return null
+  }
+}
+
+// 第2候補: Solana RPC（公開RPCは有料化・制限が入りやすいため fallback 扱い）
+async function fetchSupplyFromRpc(): Promise<number | null> {
   const body = JSON.stringify({
     jsonrpc: '2.0', id: 1,
     method: 'getTokenSupply',
@@ -32,6 +50,10 @@ async function fetchSupply(): Promise<number | null> {
   return null
 }
 
+async function fetchSupply(): Promise<number | null> {
+  return (await fetchSupplyFromJupiter()) ?? (await fetchSupplyFromRpc())
+}
+
 // DeFiLlama yields API のプロジェクト名 → protocol.id（前方一致で対応）
 function mapYieldsProject(project: string): string | null {
   const p = project.toLowerCase()
@@ -51,7 +73,7 @@ export function useEcosystemData() {
         Promise.all(SLUGS.map(s =>
           fetch(`https://api.llama.fi/tvl/${s}`).then(r => r.json()).catch(() => null)
         )),
-        // rkuSOL の発行量（複数RPC fallback）
+        // rkuSOL の発行量（Jupiter → Solana RPC の順に fallback）
         fetchSupply(),
         // rkuSOL 専用プール TVL（DeFiLlama yields API）
         fetch('https://yields.llama.fi/pools')
@@ -108,7 +130,8 @@ export function useEcosystemData() {
 
       setData(updatedRkuSOL, updatedProtocols)
       setLastUpdated(new Date())
-      setFetchError(null)
+      // 発行量が取得できなかった場合は、古い値を黙って出さずに警告表示する
+      setFetchError(supplyAmount == null ? 'Supply unavailable' : null)
     } catch (e) {
       setLastUpdated(new Date())
       setFetchError('Data update failed')
