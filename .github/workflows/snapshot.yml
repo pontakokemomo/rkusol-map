@@ -11,6 +11,9 @@
 name: Daily snapshot
 
 on:
+  # 【一時的】動作確認のため。確認できたら削除する
+  push:
+    branches: [master]
   schedule:
     # 毎日 00:20 UTC（日本時間 09:20）。
     # ちょうど 00:00 は混雑して遅延しやすいため少しずらす
