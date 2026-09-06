@@ -1,0 +1,49 @@
+# rkuSOL の発行量・ホルダー数・Kamino預入を毎日1点ずつ記録する。
+#
+# 実行内容は scripts/snapshot.mjs の呼び出しのみ。
+#   - Jupiter と DeFiLlama から数字を「読む」だけ（外部への送信はしない）
+#   - 書き込むのは public/history.json だけ
+#   - 変化があった場合のみコミットする
+#
+# 過去データを配布しているAPIが無いため、実行しなかった日の記録は
+# あとから埋められない。穴を作らないことが目的。
+
+name: Daily snapshot
+
+on:
+  schedule:
+    # 毎日 00:20 UTC（日本時間 09:20）。
+    # ちょうど 00:00 は混雑して遅延しやすいため少しずらす
+    - cron: '20 0 * * *'
+  # 手動でも実行できるようにしておく（穴に気づいたときの補填用）
+  workflow_dispatch:
+
+# history.json をコミットするために書き込み権限が必要
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      # 依存パッケージは使っていないので npm install は不要
+      - name: Record today
+        run: node scripts/snapshot.mjs
+
+      - name: Commit if changed
+        run: |
+          if [ -z "$(git status --porcelain public/history.json)" ]; then
+            echo "変化なし。コミットしません"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/history.json
+          git commit -m "data: $(date -u +%Y-%m-%d) のスナップショットを記録"
+          git push

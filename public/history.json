@@ -1,0 +1,519 @@
+{
+  "days": [
+    {
+      "date": "2026-06-12",
+      "price": 68.1849,
+      "kaminoUsd": 526565,
+      "kaminoTokens": 7723
+    },
+    {
+      "date": "2026-06-13",
+      "price": 68.0455,
+      "kaminoUsd": 545225,
+      "kaminoTokens": 8013
+    },
+    {
+      "date": "2026-06-14",
+      "price": 68.0301,
+      "kaminoUsd": 558046,
+      "kaminoTokens": 8203
+    },
+    {
+      "date": "2026-06-15",
+      "price": 73.2222,
+      "kaminoUsd": 585622,
+      "kaminoTokens": 7998
+    },
+    {
+      "date": "2026-06-16",
+      "price": 75.215,
+      "kaminoUsd": 1472801,
+      "kaminoTokens": 19581
+    },
+    {
+      "date": "2026-06-17",
+      "price": 72.2859,
+      "kaminoUsd": 1432364,
+      "kaminoTokens": 19815
+    },
+    {
+      "date": "2026-06-18",
+      "price": 71.8001,
+      "kaminoUsd": 1387197,
+      "kaminoTokens": 19320
+    },
+    {
+      "date": "2026-06-19",
+      "price": 68.5894,
+      "kaminoUsd": 1383654,
+      "kaminoTokens": 20173
+    },
+    {
+      "date": "2026-06-20",
+      "price": 71.788,
+      "kaminoUsd": 1467346,
+      "kaminoTokens": 20440
+    },
+    {
+      "date": "2026-06-21",
+      "price": 73.4915,
+      "kaminoUsd": 1452050,
+      "kaminoTokens": 19758
+    },
+    {
+      "date": "2026-06-22",
+      "price": 74.6446,
+      "kaminoUsd": 1437845,
+      "kaminoTokens": 19263
+    },
+    {
+      "date": "2026-06-23",
+      "price": 69.2824,
+      "kaminoUsd": 1386219,
+      "kaminoTokens": 20008
+    },
+    {
+      "date": "2026-06-24",
+      "price": 69.1658,
+      "kaminoUsd": 1359004,
+      "kaminoTokens": 19649
+    },
+    {
+      "date": "2026-06-25",
+      "price": 68.5268,
+      "kaminoUsd": 1347512,
+      "kaminoTokens": 19664
+    },
+    {
+      "date": "2026-06-26",
+      "price": 69.2683,
+      "kaminoUsd": 1441807,
+      "kaminoTokens": 20815
+    },
+    {
+      "date": "2026-06-27",
+      "price": 72.4437,
+      "kaminoUsd": 1426798,
+      "kaminoTokens": 19695
+    },
+    {
+      "date": "2026-06-28",
+      "price": 72.2204,
+      "kaminoUsd": 1408988,
+      "kaminoTokens": 19510
+    },
+    {
+      "date": "2026-06-29",
+      "price": 73.7871,
+      "kaminoUsd": 1511663,
+      "kaminoTokens": 20487
+    },
+    {
+      "date": "2026-06-30",
+      "price": 74.0602,
+      "kaminoUsd": 1474852,
+      "kaminoTokens": 19914
+    },
+    {
+      "date": "2026-07-01",
+      "price": 75.2254,
+      "kaminoUsd": 1563361,
+      "kaminoTokens": 20782
+    },
+    {
+      "date": "2026-07-02",
+      "price": 82.56,
+      "kaminoUsd": 1623522,
+      "kaminoTokens": 19665
+    },
+    {
+      "date": "2026-07-03",
+      "price": 81.8996,
+      "kaminoUsd": 1655422,
+      "kaminoTokens": 20213
+    },
+    {
+      "date": "2026-07-04",
+      "price": 82.112,
+      "kaminoUsd": 1646225,
+      "kaminoTokens": 20049
+    },
+    {
+      "date": "2026-07-05",
+      "price": 81.3489,
+      "kaminoUsd": 1644590,
+      "kaminoTokens": 20216
+    },
+    {
+      "date": "2026-07-06",
+      "price": 79.9712,
+      "kaminoUsd": 1655825,
+      "kaminoTokens": 20705
+    },
+    {
+      "date": "2026-07-07",
+      "price": 82.008,
+      "kaminoUsd": 1627175,
+      "kaminoTokens": 19842
+    },
+    {
+      "date": "2026-07-08",
+      "price": 77.9504,
+      "kaminoUsd": 1586105,
+      "kaminoTokens": 20348
+    },
+    {
+      "date": "2026-07-09",
+      "price": 78.4149,
+      "kaminoUsd": 1602237,
+      "kaminoTokens": 20433
+    },
+    {
+      "date": "2026-07-10",
+      "price": 79.7837,
+      "kaminoUsd": 1629421,
+      "kaminoTokens": 20423
+    },
+    {
+      "date": "2026-07-11",
+      "price": 78.4913,
+      "kaminoUsd": 1624061,
+      "kaminoTokens": 20691
+    },
+    {
+      "date": "2026-07-12",
+      "price": 77.9199,
+      "kaminoUsd": 1601790,
+      "kaminoTokens": 20557
+    },
+    {
+      "date": "2026-07-13",
+      "price": 76.3924,
+      "kaminoUsd": 1555266,
+      "kaminoTokens": 20359
+    },
+    {
+      "date": "2026-07-14",
+      "price": 77.2281,
+      "kaminoUsd": 1628642,
+      "kaminoTokens": 21089
+    },
+    {
+      "date": "2026-07-15",
+      "price": 79.3488,
+      "kaminoUsd": 1624806,
+      "kaminoTokens": 20477
+    },
+    {
+      "date": "2026-07-16",
+      "price": 76.56,
+      "kaminoUsd": 1571031,
+      "kaminoTokens": 20520
+    },
+    {
+      "date": "2026-07-17",
+      "price": 74.5792,
+      "kaminoUsd": 1564917,
+      "kaminoTokens": 20983
+    },
+    {
+      "date": "2026-07-18",
+      "price": 75.4931,
+      "kaminoUsd": 1577592,
+      "kaminoTokens": 20897
+    },
+    {
+      "date": "2026-07-19",
+      "price": 76.6642,
+      "kaminoUsd": 1588819,
+      "kaminoTokens": 20724
+    },
+    {
+      "date": "2026-07-20",
+      "price": 77.0778,
+      "kaminoUsd": 1617178,
+      "kaminoTokens": 20981
+    },
+    {
+      "date": "2026-07-21",
+      "price": 79.2288,
+      "kaminoUsd": 1627510,
+      "kaminoTokens": 20542
+    },
+    {
+      "date": "2026-07-22",
+      "price": 78.2413,
+      "kaminoUsd": 1628978,
+      "kaminoTokens": 20820
+    },
+    {
+      "date": "2026-07-23",
+      "price": 78.4293,
+      "kaminoUsd": 1590596,
+      "kaminoTokens": 20281
+    },
+    {
+      "date": "2026-07-24",
+      "price": 75.5719,
+      "kaminoUsd": 1553229,
+      "kaminoTokens": 20553
+    },
+    {
+      "date": "2026-07-25",
+      "price": 74.61,
+      "kaminoUsd": 1565423,
+      "kaminoTokens": 20981
+    },
+    {
+      "date": "2026-07-26",
+      "price": 75.6231,
+      "kaminoUsd": 1610472,
+      "kaminoTokens": 21296
+    },
+    {
+      "date": "2026-07-27",
+      "price": 77.4921,
+      "kaminoUsd": 1616545,
+      "kaminoTokens": 20861
+    },
+    {
+      "date": "2026-07-28",
+      "price": 73.8484,
+      "kaminoUsd": 1633181,
+      "kaminoTokens": 22115
+    },
+    {
+      "date": "2026-07-29",
+      "price": 74.1696,
+      "kaminoUsd": 1638333,
+      "kaminoTokens": 22089
+    },
+    {
+      "date": "2026-07-30",
+      "price": 75.0555,
+      "kaminoUsd": 1663517,
+      "kaminoTokens": 22164
+    },
+    {
+      "date": "2026-07-31",
+      "price": 74.3573,
+      "kaminoUsd": 1622098,
+      "kaminoTokens": 21815
+    },
+    {
+      "date": "2026-08-01",
+      "price": 73.616,
+      "kaminoUsd": 1600640,
+      "kaminoTokens": 21743
+    },
+    {
+      "date": "2026-08-02",
+      "price": 73.6664,
+      "kaminoUsd": 1641408,
+      "kaminoTokens": 22282
+    },
+    {
+      "date": "2026-08-03",
+      "price": 73.1119,
+      "kaminoUsd": 1638469,
+      "kaminoTokens": 22410
+    },
+    {
+      "date": "2026-08-04",
+      "price": 74.4916,
+      "kaminoUsd": 1651868,
+      "kaminoTokens": 22175
+    },
+    {
+      "date": "2026-08-05",
+      "price": 74.8548,
+      "kaminoUsd": 1656253,
+      "kaminoTokens": 22126
+    },
+    {
+      "date": "2026-08-06",
+      "price": 74.1938,
+      "kaminoUsd": 1620735,
+      "kaminoTokens": 21845
+    },
+    {
+      "date": "2026-08-07",
+      "price": 74.7228,
+      "kaminoUsd": 1658620,
+      "kaminoTokens": 22197
+    },
+    {
+      "date": "2026-08-08",
+      "price": 76.1893,
+      "kaminoUsd": 1885980,
+      "kaminoTokens": 24754
+    },
+    {
+      "date": "2026-08-09",
+      "price": 77.3023,
+      "kaminoUsd": 1909133,
+      "kaminoTokens": 24697
+    },
+    {
+      "date": "2026-08-10",
+      "price": 77.4694,
+      "kaminoUsd": 1894406,
+      "kaminoTokens": 24454
+    },
+    {
+      "date": "2026-08-11",
+      "price": 76.8063,
+      "kaminoUsd": 1910784,
+      "kaminoTokens": 24878
+    },
+    {
+      "date": "2026-08-12",
+      "price": 77.5831,
+      "kaminoUsd": 1888450,
+      "kaminoTokens": 24341
+    },
+    {
+      "date": "2026-08-13",
+      "price": 76.8968,
+      "kaminoUsd": 1935650,
+      "kaminoTokens": 25172
+    },
+    {
+      "date": "2026-08-14",
+      "price": 76.2878,
+      "kaminoUsd": 1903866,
+      "kaminoTokens": 24956
+    },
+    {
+      "date": "2026-08-15",
+      "price": 75.9396,
+      "kaminoUsd": 1843007,
+      "kaminoTokens": 24269
+    },
+    {
+      "date": "2026-08-16",
+      "price": 76.1484,
+      "kaminoUsd": 1815009,
+      "kaminoTokens": 23835
+    },
+    {
+      "date": "2026-08-17",
+      "price": 76.5499,
+      "kaminoUsd": 1823151,
+      "kaminoTokens": 23817
+    },
+    {
+      "date": "2026-08-18",
+      "price": 76.8751,
+      "kaminoUsd": 1844448,
+      "kaminoTokens": 23993
+    },
+    {
+      "date": "2026-08-19",
+      "price": 79.2374,
+      "kaminoUsd": 2047563,
+      "kaminoTokens": 25841
+    },
+    {
+      "date": "2026-08-20",
+      "price": 88.9356,
+      "kaminoUsd": 2091293,
+      "kaminoTokens": 23515
+    },
+    {
+      "date": "2026-08-21",
+      "price": 92.379,
+      "kaminoUsd": 2268421,
+      "kaminoTokens": 24556
+    },
+    {
+      "date": "2026-08-22",
+      "price": 93.7494,
+      "kaminoUsd": 2246755,
+      "kaminoTokens": 23966
+    },
+    {
+      "date": "2026-08-23",
+      "price": 95.8719,
+      "kaminoUsd": 2292415,
+      "kaminoTokens": 23911
+    },
+    {
+      "date": "2026-08-24",
+      "price": 96.9581,
+      "kaminoUsd": 2338968,
+      "kaminoTokens": 24123
+    },
+    {
+      "date": "2026-08-25",
+      "price": 99.4947,
+      "kaminoUsd": 2335501,
+      "kaminoTokens": 23474
+    },
+    {
+      "date": "2026-08-26",
+      "price": 98.3315,
+      "kaminoUsd": 2390483,
+      "kaminoTokens": 24310
+    },
+    {
+      "date": "2026-08-27",
+      "price": 105.9685,
+      "kaminoUsd": 2622553,
+      "kaminoTokens": 24748
+    },
+    {
+      "date": "2026-08-28",
+      "price": 107.284,
+      "kaminoUsd": 2499353,
+      "kaminoTokens": 23297
+    },
+    {
+      "date": "2026-08-29",
+      "price": 105.0832,
+      "kaminoUsd": 2534297,
+      "kaminoTokens": 24117
+    },
+    {
+      "date": "2026-08-30",
+      "price": 107.58,
+      "kaminoUsd": 2499700,
+      "kaminoTokens": 23236
+    },
+    {
+      "date": "2026-08-31",
+      "price": 104.4627,
+      "kaminoUsd": 2478609,
+      "kaminoTokens": 23727
+    },
+    {
+      "date": "2026-09-01",
+      "price": 103.8057,
+      "kaminoUsd": 2396568,
+      "kaminoTokens": 23087
+    },
+    {
+      "date": "2026-09-02",
+      "price": 99.5257,
+      "kaminoUsd": 2395861,
+      "kaminoTokens": 24073
+    },
+    {
+      "date": "2026-09-03",
+      "price": 103.0254,
+      "kaminoUsd": 2427760,
+      "kaminoTokens": 23565,
+      "supply": 180774,
+      "holders": 958
+    },
+    {
+      "date": "2026-09-06",
+      "supply": 180827,
+      "price": 108.5636,
+      "holders": 958,
+      "kaminoUsd": 2561669,
+      "kaminoTokens": 23596
+    }
+  ],
+  "updatedAt": "2026-09-06T12:54:59.325Z"
+}

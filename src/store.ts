@@ -125,7 +125,8 @@ export const useStore = create<AppStore>((set) => ({
   selectedId: null,
   hoveredId: null,
   rkuSOL: {
-    supply: 88812,
+    // 取得失敗時のみ表示されるフォールバック値（2026-09-02の実測値に更新）
+    supply: 180724,
     tvl: 0,
     apy: 7.5,
     growthRate: 0,
