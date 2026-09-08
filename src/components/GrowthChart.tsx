@@ -201,6 +201,8 @@ function TextSummary({ rows, first, delta, color }:
 const W = 240
 const H = 62
 const PAD_Y = 6
+// 左右の余白。端の丸（半径2.6）と線の太さが枠からはみ出して欠けるのを防ぐ
+const PAD_X = 4
 
 interface Seg { d: string; gap: boolean }
 
@@ -216,7 +218,7 @@ function Sparkline({ rows, values, color }:
   const tSpan = times[times.length - 1] - t0 || 1
 
   const pts = values.map((v, i) => {
-    const x = ((times[i] - t0) / tSpan) * W
+    const x = PAD_X + ((times[i] - t0) / tSpan) * (W - PAD_X * 2)
     const y = PAD_Y + (1 - (v - min) / span) * (H - PAD_Y * 2)
     return [x, y] as const
   })
@@ -233,7 +235,7 @@ function Sparkline({ rows, values, color }:
   }
   const hasGap = segs.some(s => s.gap)
 
-  const area = `${pts.map((_, i) => `${i ? 'L' : 'M'}${at(i)}`).join(' ')} L${W} ${H} L0 ${H} Z`
+  const area = `${pts.map((_, i) => `${i ? 'L' : 'M'}${at(i)}`).join(' ')} L${W - PAD_X} ${H} L${PAD_X} ${H} Z`
   const [lx, ly] = pts[pts.length - 1]
   const gid = `g-${color.slice(1)}`
 
