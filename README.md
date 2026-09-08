@@ -1,73 +1,49 @@
-# React + TypeScript + Vite
+# rkuSOL Ecosystem Map
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An unofficial 3D visualization of the rkuSOL liquid staking token ecosystem on Solana.
 
-Currently, two official plugins are available:
+**Live: https://rkusol-map.netlify.app/**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## What it shows
 
-## React Compiler
+- rkuSOL supply, holder count, and Kamino collateral, recorded daily since June 2026
+- Protocols that integrate rkuSOL, drawn as orbiting planets
+- Growth measured in token counts, never USD, so price moves cannot inflate it
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Sparklines use a non-zero baseline so small movements stay visible, and always print
+the real `min - max` range underneath. Days with no record are drawn as a dotted
+segment rather than a straight line, so the chart never implies a measurement that
+was not taken.
 
-## Expanding the ESLint configuration
+## Disclaimer
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+This is an unofficial fan site. It is not affiliated with, endorsed by, or operated
+by Raiku. Every figure is taken from a public source and is not investment advice.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Data sources
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+| Metric | Source |
+| --- | --- |
+| Supply, holder count | Jupiter Token API (Solana RPC as fallback) |
+| Kamino collateral, protocol TVL | DeFiLlama |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+A GitHub Action records one snapshot per day into `public/history.json`. Past values
+are not available from any API, so the record only grows forward from June 2026.
+
+## How it is built
+
+Built with Claude Code (Anthropic). Project direction, fact-checking, and QA by the
+author.
+
+## Stack
+
+React 19, TypeScript, Vite, Three.js (`@react-three/fiber`, `drei`, `postprocessing`),
+zustand.
+
+## Development
+
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+npm ci        # install exactly what the lockfile pins
+npm run dev   # http://localhost:5173
+npm run build # output to dist/
 ```
