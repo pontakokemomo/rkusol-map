@@ -64,7 +64,8 @@
       "date": "2026-06-22",
       "price": 74.6446,
       "kaminoUsd": 1437845,
-      "kaminoTokens": 19263
+      "kaminoTokens": 19263,
+      "supply": 88812
     },
     {
       "date": "2026-06-23",
@@ -100,7 +101,8 @@
       "date": "2026-06-28",
       "price": 72.2204,
       "kaminoUsd": 1408988,
-      "kaminoTokens": 19510
+      "kaminoTokens": 19510,
+      "supply": 93601
     },
     {
       "date": "2026-06-29",
@@ -166,7 +168,8 @@
       "date": "2026-07-09",
       "price": 78.4149,
       "kaminoUsd": 1602237,
-      "kaminoTokens": 20433
+      "kaminoTokens": 20433,
+      "supply": 94750
     },
     {
       "date": "2026-07-10",

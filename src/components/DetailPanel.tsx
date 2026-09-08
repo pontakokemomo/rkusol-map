@@ -130,7 +130,6 @@ function RkuSOLDetail({ rkuSOL, protocolCount }: { rkuSOL: any; protocolCount: n
       <StatRow label="Supply"    value={`${rkuSOL.supply.toLocaleString()} rkuSOL`} color="#C0FF38" />
       <div style={{ fontSize: '12px', color: '#556', marginTop: '-10px', lineHeight: 1.7 }}>
         Ranked in top 30 Solana LSTs within 1 week of launch (Sanctum tracker).
-        Roughly 2x since 22 Jun 2026 (88,812 rkuSOL, recorded on this site).
       </div>
       <StatRow label="Ecosystem" value={`${protocolCount} Protocols`}               color="#bbc" />
 
