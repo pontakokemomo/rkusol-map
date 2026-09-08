@@ -1,0 +1,13 @@
+# Netlify がこのリポジトリを見てサイトを作るための設定。
+# GitHub に変更が入るたび、Netlify がこの手順どおりに作り直して公開する。
+
+[build]
+  # ロックファイルどおりに依存を入れたうえで npm run build が実行される
+  command = "npm run build"
+  # ビルドでできる公開用フォルダ
+  publish = "dist"
+
+[build.environment]
+  # 指定しないと Netlify が勝手にバージョンを選び、ある日ビルドが壊れうる。
+  # Vite が要求するのは ^20.19.0 || >=22.12.0
+  NODE_VERSION = "22"
