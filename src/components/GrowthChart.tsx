@@ -34,7 +34,7 @@ const SERIES: Record<SeriesKey, SeriesDef> = {
     key: 'holders',
     label: 'HOLDERS',
     color: '#FFB830',
-    note: 'Wallets holding rkuSOL.',
+    note: 'Wallets holding rkuSOL. Recorded since Sep 2026.',
   },
   kaminoTokens: {
     key: 'kaminoTokens',
@@ -57,6 +57,10 @@ const SHOW_DOTS_MAX = 20
 
 // この割合未満の増減は測定のゆらぎとみなし、増減として色をつけない
 const NOISE_RATIO = 0.01
+
+// 縦軸をゼロから描かない代わりの安全弁。値のこの割合未満しか動いていない系列は
+// 引き伸ばさず平らに描く。数人ぶんの揺れが急落・急騰に見えるのを防ぐ
+const FLAT_RATIO = 0.02
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -210,7 +214,11 @@ function Sparkline({ rows, values, color }:
   { rows: Day[]; values: number[]; color: string }) {
   const min = Math.min(...values)
   const max = Math.max(...values)
-  const span = max - min || 1
+  // 実際の差が値の FLAT_RATIO 未満のときは、その割合ぶんの幅があるものとして描く。
+  // 余った幅は上下へ均等に配り、ほぼ横ばいの線が枠の中央を通るようにする
+  const range = max - min
+  const span = Math.max(range, max * FLAT_RATIO) || 1
+  const lo = min - (span - range) / 2
 
   // 記録が飛んだ日があっても正しい間隔で描くため、x は日付そのもので取る
   const times = rows.map(r => Date.parse(r.date))
@@ -219,7 +227,7 @@ function Sparkline({ rows, values, color }:
 
   const pts = values.map((v, i) => {
     const x = PAD_X + ((times[i] - t0) / tSpan) * (W - PAD_X * 2)
-    const y = PAD_Y + (1 - (v - min) / span) * (H - PAD_Y * 2)
+    const y = PAD_Y + (1 - (v - lo) / span) * (H - PAD_Y * 2)
     return [x, y] as const
   })
 
