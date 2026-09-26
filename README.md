@@ -47,3 +47,10 @@ npm ci        # install exactly what the lockfile pins
 npm run dev   # http://localhost:5173
 npm run build # output to dist/
 ```
+
+## License
+
+The original source code is released under the [MIT License](LICENSE).
+Third-party trademarks, logos, and images (including Raiku and rkuSOL assets)
+belong to their respective owners and are not covered by the MIT License.
+See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
