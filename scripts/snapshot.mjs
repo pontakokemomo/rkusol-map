@@ -50,14 +50,27 @@ async function fetchKaminoUsd() {
   return pool.tvlUsd
 }
 
+// 過去の記録はAPIから復元できない項目があるため、読めなかった履歴を
+// 空として扱って上書きしてはいけない。空で始めてよいのはファイルが無いときだけ
 async function readHistory() {
+  let raw
   try {
-    const raw = await readFile(HISTORY_PATH, 'utf8')
-    const json = JSON.parse(raw)
-    return Array.isArray(json.days) ? json : { days: [] }
-  } catch {
-    return { days: [] }
+    raw = await readFile(HISTORY_PATH, 'utf8')
+  } catch (e) {
+    if (e.code === 'ENOENT') return { days: [] }
+    throw new Error(`history.json を読み込めません: ${e.message}`)
   }
+
+  let json
+  try {
+    json = JSON.parse(raw)
+  } catch (e) {
+    throw new Error(`history.json が JSON として壊れています: ${e.message}`)
+  }
+  if (!Array.isArray(json?.days)) {
+    throw new Error('history.json に days が無いか、配列ではありません')
+  }
+  return json
 }
 
 async function main() {
