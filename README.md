@@ -1,13 +1,14 @@
 # rkuSOL Ecosystem Map
 
-An unofficial 3D visualization of the rkuSOL liquid staking token ecosystem on Solana.
+An unofficial, open-source 3D visualization of the rkuSOL liquid staking token
+ecosystem on Solana, and a tracker of its historical on-chain data.
 
 **Live: https://rkusol-map.netlify.app/**
 
 ## What it shows
 
-- rkuSOL supply, holder count, and Kamino collateral, recorded daily since June 2026
 - Protocols that integrate rkuSOL, drawn as orbiting planets
+- History of rkuSOL supply, holder count, price, and Kamino collateral
 - Growth measured in token counts, never USD, so price moves cannot inflate it
 
 Sparklines use a non-zero baseline so small movements stay visible, and always print
@@ -24,11 +25,24 @@ by Raiku. Every figure is taken from a public source and is not investment advic
 
 | Metric | Source |
 | --- | --- |
-| Supply, holder count | Jupiter Token API (Solana RPC as fallback) |
-| Kamino collateral, protocol TVL | DeFiLlama |
+| Supply, holder count, price | Jupiter Token API (Solana RPC as fallback) |
+| Kamino collateral, protocol TVL, past prices | DeFiLlama |
 
-A GitHub Action records one snapshot per day into `public/history.json`. Past values
-are not available from any API, so the record only grows forward from June 2026.
+## Historical data
+
+Historical records begin in June 2026, but earlier records contain partial metric
+coverage. Automated daily snapshots have been maintained through GitHub Actions since
+September 2026, when upstream data is available. Records are stored in
+`public/history.json`.
+
+| Metric | Coverage |
+| --- | --- |
+| Price, Kamino collateral | From 2026-06-12 (June to early September largely backfilled from DeFiLlama history) |
+| Supply | A few points in June and July 2026, then from 2026-09-03 |
+| Holder count | From 2026-09-03 |
+
+Supply and holder count have no public history API, so a missed day cannot be
+filled in later and is left as a gap.
 
 ## How it is built
 
