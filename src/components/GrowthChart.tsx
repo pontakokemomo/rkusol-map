@@ -89,7 +89,7 @@ function signed(n: number): string {
 
 let cache: Day[] | null = null
 
-export function useHistory(): Day[] | null {
+function useHistory(): Day[] | null {
   const [days, setDays] = useState<Day[] | null>(cache)
 
   useEffect(() => {

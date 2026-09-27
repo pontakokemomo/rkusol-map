@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useStore } from '../store'
 
 const SLUGS = ['sanctum', 'jupiter', 'kamino', 'loopscale', 'exponent']
@@ -65,7 +65,9 @@ function mapYieldsProject(project: string): string | null {
 export function useEcosystemData() {
   const { setData, setLastUpdated, setFetchError } = useStore()
 
-  async function fetchAll() {
+  // store の関数は作成時から変わらないため、fetchAll も作り直されず
+  // 下の useEffect は従来どおり最初の1回だけ動く
+  const fetchAll = useCallback(async () => {
     try {
       const { protocols, rkuSOL } = useStore.getState()
       const [tvls, supplyAmount, yieldsRes] = await Promise.all([
@@ -132,17 +134,17 @@ export function useEcosystemData() {
       setLastUpdated(new Date())
       // 発行量が取得できなかった場合は、古い値を黙って出さずに警告表示する
       setFetchError(supplyAmount == null ? 'Supply unavailable' : null)
-    } catch (e) {
+    } catch {
       setLastUpdated(new Date())
       setFetchError('Data update failed')
     }
-  }
+  }, [setData, setLastUpdated, setFetchError])
 
   useEffect(() => {
     fetchAll()
     const interval = setInterval(fetchAll, 5 * 60 * 1000)
     return () => clearInterval(interval)
-  }, [])
+  }, [fetchAll])
 }
 
 function calcPlanetSize(tvl: number): number {

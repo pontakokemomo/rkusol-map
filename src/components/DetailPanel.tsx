@@ -1,6 +1,7 @@
 import { useStore } from '../store'
 import { useIsMobile } from '../hooks/useIsMobile'
 import { GrowthChart } from './GrowthChart'
+import type { Protocol, RkuSOLData } from '../types'
 
 function fmt(v: number): string {
   if (v <= 0 || isNaN(v)) return '$0'
@@ -111,7 +112,7 @@ export function DetailPanel() {
   )
 }
 
-function RkuSOLDetail({ rkuSOL, protocolCount }: { rkuSOL: any; protocolCount: number }) {
+function RkuSOLDetail({ rkuSOL, protocolCount }: { rkuSOL: RkuSOLData; protocolCount: number }) {
   return (
     <>
       <div>
@@ -154,7 +155,7 @@ function RkuSOLDetail({ rkuSOL, protocolCount }: { rkuSOL: any; protocolCount: n
   )
 }
 
-function ProtocolDetail({ protocol }: { protocol: any }) {
+function ProtocolDetail({ protocol }: { protocol: Protocol }) {
   const catColor = CATEGORY_COLOR[protocol.category] ?? '#aaa'
   const hasRkuSOLTvl = protocol.connectedLiquidity !== null
   const isValidatorStake = protocol.kind === 'validator-stake'
@@ -192,7 +193,7 @@ function ProtocolDetail({ protocol }: { protocol: any }) {
               </div>
             </div>
 
-            {hasRkuSOLTvl && (
+            {protocol.connectedLiquidity !== null && (
               <div>
                 <StatRow label="rkuSOL TVL" value={fmt(protocol.connectedLiquidity)} color="#FFB830" />
                 <div style={{ fontSize: '12px', color: '#556', marginTop: '5px', lineHeight: 1.7 }}>

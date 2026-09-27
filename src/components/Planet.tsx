@@ -1,4 +1,4 @@
-import { useRef, useCallback } from 'react'
+import { useRef, useCallback, useMemo } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Html } from '@react-three/drei'
 import * as THREE from 'three'
@@ -16,7 +16,7 @@ export function Planet({ protocol }: Props) {
   const groupRef = useRef<THREE.Group>(null)   // 惑星全体（位置を更新）
   const meshRef  = useRef<THREE.Group>(null)   // 惑星メッシュ（自転）
   const angleRef = useRef(protocol.orbitPhase)
-  const posRef   = useRef(new THREE.Vector3()) // FlowStream 用
+  const pos      = useMemo(() => new THREE.Vector3(), []) // FlowStream 用（毎フレーム中身だけ更新）
 
   const { selectedId, hoveredId, setSelected, setHovered } = useStore()
 
@@ -37,7 +37,7 @@ export function Planet({ protocol }: Props) {
     const z = Math.sin(a) * r
     const y = Math.sin(a * 1.7 + t * 0.08) * 0.6 + Math.sin(a) * r * Math.sin(tilt)
 
-    posRef.current.set(x, y, z)
+    pos.set(x, y, z)
 
     // groupRef を動かすと、子の Html も一緒についてくる
     if (groupRef.current) groupRef.current.position.set(x, y, z)
@@ -184,7 +184,7 @@ export function Planet({ protocol }: Props) {
       </group>
 
       {/* フローストリーム */}
-      <FlowStream protocol={protocol} targetPos={posRef.current} />
+      <FlowStream protocol={protocol} targetPos={pos} />
     </>
   )
 }
