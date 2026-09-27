@@ -1,0 +1,33 @@
+# コード変更や Pull Request のたびに、lint と本番ビルドが通るかを確認する。
+#
+#   - 読み取り専用。リポジトリへの書き込みや history.json の更新はしない
+#   - secret は使わない
+#   - Snapshot の取得は snapshot.yml の役目なので、ここでは実行しない
+
+name: CI
+
+on:
+  push:
+  pull_request:
+
+# 確認だけなので読み取り権限のみ
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+
+      # ロックファイルどおりに厳密に入れる
+      - run: npm ci
+
+      - run: npm run lint
+
+      - run: npm run build
