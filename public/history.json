@@ -740,7 +740,15 @@
       "holders": 963,
       "kaminoUsd": 2798980,
       "kaminoTokens": 22713
+    },
+    {
+      "date": "2026-10-05",
+      "supply": 177921,
+      "price": 122.8855,
+      "holders": 966,
+      "kaminoUsd": 2796245,
+      "kaminoTokens": 22755
     }
   ],
-  "updatedAt": "2026-10-04T05:55:20.277Z"
+  "updatedAt": "2026-10-05T05:43:12.792Z"
 }
